@@ -8,20 +8,38 @@ import java.awt.Color;
 public class BrendanSwords extends AdvancedRobot
 {
 int forwardOrBack = 1;	
-
-
+boolean forwardVelocity = false;
+Color bodyColor = new Color(0.38f, 1.0f, 0.31f);
+Color gunColor =  new Color(0.97f,0.48f,1f);
+Color radarColor = new Color(0f, 1f, 0.945f);
+int noOfRobots = 0;
 public void run(){
-int noOfRobots = getOthers();
+setColors(bodyColor, gunColor, radarColor);
+		noOfRobots = getOthers();
 		boolean start = true;
 		while(start){	
-		
+		if(noOfRobots>16){
+		setTurnRight(10000);
+			
+		setMaxVelocity(5);
+			
+		setAhead(10000);
+		execute();
+		}else{
 		setAdjustRadarForRobotTurn(true);
 		turnRadarRight(360000);
+		}
 			
 		}
 }
 		
 	public void onScannedRobot(ScannedRobotEvent e) {
+	if(noOfRobots > 16){
+	System.out.println("AAA");
+			setFire(3);
+			execute();
+			return;
+}
 	
 if(e.isSentryRobot()){
     double centerAngle = Math.atan2(getBattleFieldWidth()/2-getX(), getBattleFieldHeight()/2-getY());
@@ -62,18 +80,35 @@ if(e.isSentryRobot()){
 	}
 
 	
-
+public void onHitRobotEvent(HitRobotEvent e){
+	if(e.isMyFault()){
+	setBack(50);
+	}
+}
 	
-	double fixAim(double angle){
+	
+public	double fixAim(double angle){
 	if(angle > 180){return angle-360;}
 	if(angle < -180){return angle+360;}
 	return angle;
-	}
+}
 	 
-	public void onHitWall(HitWallEvent e) {
-	if(getVelocity() == 0){
+public void onHitWall(HitWallEvent e) {
+	if(noOfRobots > 16){	
+		
+	
+		if(forwardVelocity){
+			setBack(1000);
+			forwardVelocity = false;
+		}else{
+			setAhead(1000);
+			forwardVelocity = true;
+		}
+}else{
 	forwardOrBack *= -1;
- 	}
+}
+}
 
-	}	
+	
+
 }
