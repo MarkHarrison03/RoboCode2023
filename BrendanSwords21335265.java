@@ -5,7 +5,7 @@ import java.awt.Color;
 
  
 
-public class BrendanSwords extends AdvancedRobot
+public class BrendanSwords21335265 extends AdvancedRobot
 {
 int forwardOrBack = 1;	
 boolean forwardVelocity = false;
