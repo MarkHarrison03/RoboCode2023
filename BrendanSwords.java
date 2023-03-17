@@ -19,12 +19,11 @@ setColors(bodyColor, gunColor, radarColor);
 		boolean start = true;
 		while(start){	
 		if(noOfRobots>16){
-		setTurnRight(10000);
-			
 		setMaxVelocity(5);
-			
+		setTurnRight(10000);
 		setAhead(10000);
 		execute();
+		
 		}else{
 		setAdjustRadarForRobotTurn(true);
 		turnRadarRight(360000);
@@ -35,14 +34,14 @@ setColors(bodyColor, gunColor, radarColor);
 		
 	public void onScannedRobot(ScannedRobotEvent e) {
 	if(noOfRobots > 16){
-	System.out.println("AAA");
+
 			setFire(3);
 			execute();
 			return;
 }
 	
 if(e.isSentryRobot()){
-    double centerAngle = Math.atan2(getBattleFieldWidth()/2-getX(), getBattleFieldHeight()/2-getY());
+    double centerAngle = Math	.atan2(getBattleFieldWidth()/2-getX(), getBattleFieldHeight()/2-getY());
     setTurnRightRadians(fixAim(centerAngle - getHeadingRadians()));
     setAhead(100);
 
